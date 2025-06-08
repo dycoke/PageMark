@@ -14,14 +14,13 @@
 
 ## Getting Started
 
-1. Clone or download this repository:
-   ```bash
-   git clone https://github.com/dycoke/PageMark.git
-   ```
-2. Open Chrome and go to chrome://extensions
-3. Enable Developer Mode
-4. Click Load unpacked and select the pagemark/ folder
-5. Start taking notes while browsing!
+1. Unzip the file and you should have a folder named `PageMark`.
+2. In Chrome/Edge go to the extensions page (chrome://extensions or edge://extensions).
+3. Enable Developer Mode.
+5. Click Load unpacked and select the `PageMark` folder
+6. Press the extension icon to open the notepad,
+   - Alternatively, use the keyboard shortcut `Cmd+Shift+Y` or `Ctrl+Shift+Y`
+7. Start taking notes while browsing!
 
 ## Use Cases
 
