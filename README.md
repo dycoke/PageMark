@@ -2,8 +2,6 @@
 
 **PageMark** is a powerful browser extension that lets you create and manage Markdown notes linked to specific webpages or URLs. Ideal for researchers, developers, students, and anyone who wants to take contextual notes while browsing.
 
----
-
 ## Features
 
 - Create rich **Markdown notes** for individual pages, domains, or paths
@@ -13,8 +11,6 @@
 - Full-text search across your notes (coming soon)
 - Clean, intuitive UI with fast note creation from the popup
 - Dedicated settings page for customization
-
----
 
 ## Getting Started
 
