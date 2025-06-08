@@ -16,7 +16,7 @@
 
 1. Clone or download this repository:
    ```bash
-   git clone https://github.com/yourusername/pagemark.git
+   git clone https://github.com/dycoke/PageMark.git
    ```
 2. Open Chrome and go to chrome://extensions
 3. Enable Developer Mode
