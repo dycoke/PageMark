@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const noteInput = document.getElementById('noteInput');
   const previewDiv = document.getElementById('preview');
+  const settingsButton = document.getElementById('settingsButton');
 
   function loadNote() {
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
@@ -37,7 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     previewDiv.innerHTML = html;
   }
-
+  settingsButton.addEventListener('click', () => {
+    chrome.runtime.openOptionsPage();
+  });
   loadNote();
 
   let debounceTimer;
@@ -48,5 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
       renderNote();
     }, 250);
   });
+
 
 }); 

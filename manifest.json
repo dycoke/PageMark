@@ -1,7 +1,7 @@
 {
     "name": "PageMark",
     "description": "A browser extension that allows you to take markdown and LaTeX notes on websites.",
-    "version": "1.0",
+    "version": "0.1.1",
     "manifest_version": 3,
     "action": {
       "default_popup": "src/index.html",
@@ -9,15 +9,18 @@
     },
     "permissions": [
       "storage",
+      "unlimitedStorage",
       "activeTab",
-      "scripting"
+      "scripting",
+      "commands"
     ],
+    "options_page": "src/settings.html",
     "commands": {
-      "open-note": {
+      "quick-note": {
         "suggested_key": {
           "default": "Ctrl+Shift+Y"
         },
-        "description": "Open the note editor"
+        "description": "Quickly open the note editor"
       }
     },
     "background": {
