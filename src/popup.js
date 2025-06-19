@@ -29,15 +29,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderNote() {
     const note = noteInput.value;
-    let html = marked.parse(note);
-    html = html.replace(/\$\$(.*?)\$\$/g, (match, p1) => {
-      return katex.renderToString(p1, {displayMode: true});
+    // Render Markdown to HTML using marked
+    let html = window.marked.parse(note, { gfm: true, breaks: true });
+    // Render LaTeX using KaTeX (display mode first)
+    html = html.replace(/\$\$(.*?)\$\$/gs, (match, expr) => {
+      try {
+        return window.katex.renderToString(expr, {
+          throwOnError: false,
+          displayMode: true
+        });
+      } catch (e) {
+        return `<span style='color:#dc2626;font-weight:bold'>LaTeX Error (Display): ${e.message}</span>`;
+      }
     });
-    html = html.replace(/\$(.*?)\$/g, function(match, p1) {
-      return katex.renderToString(p1, {displayMode: false});
+    html = html.replace(/\$(.*?)\$/g, (match, expr) => {
+      try {
+        return window.katex.renderToString(expr, {
+          throwOnError: false,
+          displayMode: false
+        });
+      } catch (e) {
+        return `<span style='color:#dc2626;font-weight:bold'>LaTeX Error (Inline): ${e.message}</span>`;
+      }
     });
     previewDiv.innerHTML = html;
   }
+
   settingsButton.addEventListener('click', () => {
     chrome.runtime.openOptionsPage();
   });

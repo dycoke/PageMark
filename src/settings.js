@@ -1,12 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const shortcutInput = document.getElementById('shortcutInput');
-  const saveShortcutButton = document.getElementById('saveShortcut');
   const notesList = document.getElementById('notesList');
-
-  // Load current shortcut
-  chrome.storage.local.get('shortcut', (data) => {
-    shortcutInput.value = data.shortcut || '';
-  });
 
   // Load all notes
   function loadNotes() {
@@ -46,9 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
             path.setAttribute('d', 'M2 2L22 22M2 22L22 2');
             svg.appendChild(path);
             button.appendChild(svg);
-            button.addEventListener('click', () => {
-                messageBox.style.display = 'block'; // Show the message box
-            });
 
             button.onclick = () => {
               chrome.storage.local.remove(url, () => {
@@ -65,31 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
           noteItem.appendChild(removeButton);
           notesList.appendChild(noteItem);
         });
-    });
-  }
-
-  // Shortcut input handler
-  shortcutInput.addEventListener('keydown', function(e) {
-    e.preventDefault();
-    const keys = [];
-    if (e.ctrlKey) keys.push('Ctrl');
-    if (e.altKey) keys.push('Alt');
-    if (e.shiftKey) keys.push('Shift');
-    if (e.key !== 'Control' && e.key !== 'Alt' && e.key !== 'Shift') {
-      keys.push(e.key.toUpperCase());
-    }
-    this.value = keys.join('+');
-  });
-
-  // Save shortcut button click handler
-  saveShortcutButton.onclick = function() {
-    const shortcut = shortcutInput.value;
-    chrome.storage.local.set({shortcut: shortcut}, () => {
-      // Update the command in the manifest
-      chrome.runtime.sendMessage({
-        action: 'updateShortcut',
-        shortcut: shortcut
-      });
     });
   }
 
