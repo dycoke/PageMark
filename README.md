@@ -1,3 +1,4 @@
+![PageMark Logo](/icons/texticon.svg)
 # PageMark
 
 **PageMark** is a powerful browser extension that lets you create and manage Markdown notes linked to specific webpages or URLs. Ideal for researchers, developers, students, and anyone who wants to take contextual notes while browsing.
