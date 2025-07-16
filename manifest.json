@@ -1,7 +1,7 @@
 {
     "name": "PageMark",
     "description": "A browser extension that allows you to take markdown and LaTeX notes on websites.",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "manifest_version": 3,
     "action": {
       "default_popup": "src/index.html",
