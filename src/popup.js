@@ -29,10 +29,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderNote() {
     const note = noteInput.value;
+    const latexBlocks = [];
+    const inlineLatexBlocks = [];
+
+    // Temporarily replace LaTeX blocks with placeholders to protect them from marked.js
+    let processedNote = note.replace(/\$\$(.*?)\$\$/gs, (match, expr) => {
+      latexBlocks.push(expr);
+      return `LATEX_BLOCK_PLACEHOLDER_${latexBlocks.length - 1}`;
+    });
+
+    processedNote = processedNote.replace(/\$(.*?)\$/g, (match, expr) => {
+      inlineLatexBlocks.push(expr);
+      return `INLINE_LATEX_PLACEHOLDER_${inlineLatexBlocks.length - 1}`;
+    });
+
     // Render Markdown to HTML using marked
-    let html = window.marked.parse(note, { gfm: true, breaks: true });
-    // Render LaTeX using KaTeX (display mode first)
-    html = html.replace(/\$\$(.*?)\$\$/gs, (match, expr) => {
+    let html = window.marked.parse(processedNote, { gfm: true, breaks: true });
+
+    // Substitute LaTeX blocks back and render with KaTeX
+    html = html.replace(/LATEX_BLOCK_PLACEHOLDER_(\d+)/g, (match, index) => {
+      const expr = latexBlocks[parseInt(index, 10)];
       try {
         return window.katex.renderToString(expr, {
           throwOnError: false,
@@ -42,7 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return `<span style='color:#dc2626;font-weight:bold'>LaTeX Error (Display): ${e.message}</span>`;
       }
     });
-    html = html.replace(/\$(.*?)\$/g, (match, expr) => {
+
+    html = html.replace(/INLINE_LATEX_PLACEHOLDER_(\d+)/g, (match, index) => {
+      const expr = inlineLatexBlocks[parseInt(index, 10)];
       try {
         return window.katex.renderToString(expr, {
           throwOnError: false,
@@ -52,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return `<span style='color:#dc2626;font-weight:bold'>LaTeX Error (Inline): ${e.message}</span>`;
       }
     });
+
     previewDiv.innerHTML = html;
   }
 

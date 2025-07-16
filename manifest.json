@@ -16,7 +16,6 @@
       "storage",
       "unlimitedStorage",
       "activeTab",
-      "scripting",
       "commands"
     ],
     "options_page": "src/settings.html",
